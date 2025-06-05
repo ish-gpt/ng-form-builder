@@ -1,0 +1,15 @@
+.dashboard-wrapper {
+    min-height: 100%;
+    display: flex;
+}
+
+.form-section{
+    flex: 1;
+    border: 1px solid #d7d5d5;
+}
+
+.template-section {
+    flex: 2;
+    border: 1px solid #d7d5d5;
+    /* height: 100%; */
+}

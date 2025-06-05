@@ -1,0 +1,96 @@
+<!-- 
+ {
+    "fieldName": "sdfde",
+    "fieldType": "Text Input",
+    "min": 1,
+    "max": 1,
+    "required": true,
+    "helpText": "",
+    "pattern": "",
+    "children": []
+}
+  -->
+<div cdkDropListGroup>
+  <div
+    class="field-drop-section"
+    cdkDropList
+    [cdkDropListConnectedTo]="['sourceList']"
+    (cdkDropListDropped)="drop($event)"
+    id="dropZone"
+  >
+    <div class="drop-body">
+      <ng-container *ngFor="let formItem of formItems">
+        <div [ngSwitch]="formItem.fieldType">
+          <div *ngSwitchCase="types.textfield">
+            <div>
+              <mat-form-field appearance="outline">
+                <mat-label>{{ formItem.fieldName }}</mat-label>
+                <input matInput type="text" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div *ngSwitchCase="types.textarea">
+            <div>
+              <mat-form-field appearance="outline">
+                <mat-label>{{ formItem.fieldName }}</mat-label>
+                <textarea matInput></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div *ngSwitchCase="types.dropdown">
+            <div>
+              <mat-form-field>
+                <mat-label>{{formItem.fieldName}}</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let chip of formItem.chips" [value]="chip">
+                    {{ chip }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div *ngSwitchDefault>
+            <p>Default case</p>
+          </div>
+        </div>
+      </ng-container>
+      <!-- <h1>Template Name here</h1>
+      <form>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput name="username" ngModel />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput name="password" type="password" ngModel />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Login Type</mat-label>
+            <mat-select name="loginRole" ngModel>
+              <mat-option value="admin">Admin</mat-option>
+              <mat-option value="user">User</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form> -->
+    </div>
+    <div>
+      <p class="drop-note">Drag and Drop Form Fields Here</p>
+    </div>
+    <div class="footer" *ngIf="formItems.length">
+      <div class="cancel-template">
+        <button mat-raised-button color="primary" type="submit">Cancel</button>
+      </div>
+      <div class="add-template">
+        <button disabled mat-raised-button color="primary" type="submit">
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

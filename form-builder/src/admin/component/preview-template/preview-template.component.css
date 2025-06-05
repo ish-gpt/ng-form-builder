@@ -1,0 +1,15 @@
+
+.drop-note {
+    font-size: 24px;
+    font-weight: 300;
+    color: lightgrey;
+}
+
+.field-drop-section {
+    display: flex;
+    flex-direction: column;
+}
+.footer{
+    display: flex;
+    align-items: end;
+}

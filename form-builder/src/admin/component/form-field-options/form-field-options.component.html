@@ -1,0 +1,16 @@
+<!-- <div> -->
+<h1>Custom Field Options</h1>
+<!-- <p>(NOTE-Drag and Drop to)</p> -->
+
+<div cdkDropListGroup>
+  <div class="example-container">
+    <div cdkDropList [cdkDropListConnectedTo]="['dropZone']"
+      id="sourceList" (cdkDropListDropped)="drop($event)">
+      <div class="from-field-box" *ngFor="let item of formFields" cdkDrag [cdkDragData]="item">
+        {{ item }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- </div> -->

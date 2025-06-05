@@ -1,0 +1,90 @@
+<h1 mat-dialog-title>{{ data.type }}</h1>
+<div mat-dialog-content>
+  <p>Enter the {{ data.type }} configurable properties :</p>
+  <ng-container>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Field Name</mat-label>
+        <input matInput name="fieldname" [(ngModel)]="fieldName" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-label>Required Field :</mat-label>
+      <mat-checkbox [(ngModel)]="required"></mat-checkbox>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Help Text</mat-label>
+        <input matInput name="helptext" [(ngModel)]="helpText" />
+      </mat-form-field>
+    </div>
+    <div *ngIf="types.textfield === data.type || types.textarea === data.type">
+      <mat-form-field appearance="outline">
+        <mat-label>Minimum Length</mat-label>
+        <input
+          matInput
+          type="number"
+          name="minLength"
+          [(ngModel)]="minLength"
+        />
+      </mat-form-field>
+    </div>
+    <div *ngIf="types.textfield === data.type || types.textarea === data.type">
+      <mat-form-field appearance="outline">
+        <mat-label>Maximum Length</mat-label>
+        <input
+          matInput
+          type="number"
+          name="maxLength"
+          [(ngModel)]="maxLength"
+        />
+      </mat-form-field>
+    </div>
+    <div *ngIf="types.textfield === data.type || types.textarea === data.type">
+      <mat-form-field appearance="outline">
+        <mat-label>Validation Pattern</mat-label>
+        <input matInput name="pattern" [(ngModel)]="pattern" />
+      </mat-form-field>
+    </div>
+    <div *ngIf="types.dropdown === data.type">
+      <mat-form-field>
+        <mat-label>Add DropDown Options</mat-label>
+        <mat-chip-grid #chipGrid>
+          <mat-chip-row
+            *ngFor="let option of options"
+            (removed)="remove(option)"
+          >
+            {{ option }}
+            <button matChipRemove [attr.aria-label]="'remove ' + option">
+              <span class="material-symbols-outlined"> close </span>
+            </button>
+          </mat-chip-row>
+        </mat-chip-grid>
+        <input
+          placeholder="Add Option.."
+          #fruitInput
+          [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)"
+        />
+        <!-- <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="selected($event)"
+        >
+          <mat-option
+            *ngFor="let fruit of filteredFruits | async"
+            [value]="fruit"
+          >
+            {{ fruit }}
+          </mat-option>
+        </mat-autocomplete> -->
+      </mat-form-field>
+    </div>
+  </ng-container>
+
+  <!-- <ng-container *ngIf="types.dropdown === data.type"> </ng-container> -->
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onFieldSubmit()" cdkFocusInitial>Submit</button>
+</div>
