@@ -1,11 +1,16 @@
+<div class="nav-section">
+  <div>
+  <h1>Hi {{loggedInRole}},</h1>
+</div>
 <div>
-  <h1>Hi Admin,</h1>
+  <button (click)="logout()" mat-button="filled" style="background-color: blue; color: white;">Logout</button>
+</div>
 </div>
 <div class="dashboard-wrapper">
   <div class="template-section">
     <app-template-section></app-template-section>
   </div>
-  <div class="form-section">
+  <div class="form-section" *appPermission="role.ADMIN">
     <app-form-field-options></app-form-field-options>
   </div>
 </div>

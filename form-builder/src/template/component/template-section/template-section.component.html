@@ -24,7 +24,7 @@
           <mat-card-header>
             <mat-card-title>{{ getName(id) }} Template*</mat-card-title>
 
-            <button mat-mini-fab matTooltip="Edit" (click)="editConfiguration(id)">
+            <button mat-mini-fab matTooltip="Edit" *appPermission="role.ADMIN" (click)="editConfiguration(id)">
               <span class="material-symbols-outlined edit-icon"> edit </span>
             </button>
           </mat-card-header>
@@ -35,13 +35,13 @@
                 open_with
               </span>
             </button>
-            <button matTooltip="Delete" mat-fab class="shadow" (click)="deleteTemplate(id)">
+            <button *appPermission="role.ADMIN" matTooltip="Delete" mat-fab class="shadow" (click)="deleteTemplate(id)">
               <span class="material-symbols-outlined delete-icon"> delete </span>
             </button>
           </mat-card-content>
         </mat-card>
       </div>
-      <div>
+      <div *appPermission="role.ADMIN">
         <mat-card class="default-card" appearance="outlined">
           <mat-card-header>
             <mat-card-title>Create Template</mat-card-title>

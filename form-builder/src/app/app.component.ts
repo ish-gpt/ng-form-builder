@@ -6,10 +6,8 @@ import { LoaderComponent } from './component/loader/loader.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [LoginComponent, RouterLink, RouterLinkActive, RouterOutlet, LoaderComponent]
 })
 export class AppComponent {
   title = 'form-builder';

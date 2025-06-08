@@ -13,3 +13,10 @@
     border: 1px solid #d7d5d5;
     /* height: 100%; */
 }
+
+.nav-section {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    margin:0.5em;
+}

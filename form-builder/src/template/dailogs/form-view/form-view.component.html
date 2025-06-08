@@ -1,32 +1,42 @@
 <ng-container *ngIf="isFormView; else dataView">
-    <form [formGroup]="dynamicFormGroup" (ngSubmit)="onFormSubmit(dynamicFormGroup)" class="form">
+  <form [formGroup]="dynamicFormGroup" (ngSubmit)="onFormSubmit(dynamicFormGroup)" class="form">
     <p><i>Preview Mode</i></p>
     <ng-container *ngFor="let error of errors">
-        <div style="color: red;">
-            *{{error}}
-        </div>
+      <div style="color: red;">
+        *{{error}}
+      </div>
     </ng-container>
-     <div class="drop-body">
-        <h2>{{templateName}}</h2>
+    <div class="drop-body">
+      <h2>{{templateName}}</h2>
       <ng-container *ngFor="let formItem of data.templateItem">
         <div [ngSwitch]="formItem.fieldType">
-          <div *ngSwitchCase="types.textfield">
+          <div *ngSwitchCase="types.textfield" style="display: flex; align-items: center; cursor: pointer; justify-content: space-between;">
             <div>
               <mat-form-field appearance="outline">
                 <mat-label>{{ formItem.fieldName }}</mat-label>
                 <input matInput type="text" [formControlName]="formItem.fieldName" />
               </mat-form-field>
             </div>
+            <div *ngIf="formItem.helpText!==''">
+              <span matTooltip="{{formItem.helpText}}" class="material-symbols-outlined">
+                    info
+                  </span>
+            </div>
           </div>
-          <div *ngSwitchCase="types.textarea">
+          <div *ngSwitchCase="types.textarea" style="display: flex; align-items: center; cursor: pointer; justify-content: space-between;">
             <div>
               <mat-form-field appearance="outline">
                 <mat-label>{{ formItem.fieldName }}</mat-label>
                 <textarea matInput [formControlName]="formItem.fieldName"></textarea>
               </mat-form-field>
             </div>
+            <div *ngIf="formItem.helpText!==''">
+              <span matTooltip="{{formItem.helpText}}" class="material-symbols-outlined">
+                    info
+                  </span>
+            </div>
           </div>
-          <div *ngSwitchCase="types.dropdown">
+          <div *ngSwitchCase="types.dropdown" style="display: flex; align-items: center; cursor: pointer; justify-content: space-between;">
             <div>
               <mat-form-field>
                 <mat-label>{{ formItem.fieldName }}</mat-label>
@@ -37,23 +47,38 @@
                 </mat-select>
               </mat-form-field>
             </div>
+            <div  *ngIf="formItem.helpText!==''">
+              <span matTooltip="{{formItem.helpText}}" class="material-symbols-outlined">
+                    info
+                  </span>
+            </div>
           </div>
-          <div *ngSwitchCase="types.checkbox">
+          <div *ngSwitchCase="types.checkbox" style="display: flex; align-items: center; cursor: pointer; justify-content: space-between;">
             <div [formGroupName]="formItem.fieldName">
               <mat-label><b>{{ formItem.fieldName }}</b></mat-label>
               <div *ngFor="let option of formItem.chips">
-                <mat-checkbox  [formControlName]="option">{{ option }}</mat-checkbox>
+                <mat-checkbox [formControlName]="option">{{ option }}</mat-checkbox>
               </div>
             </div>
+            <div  *ngIf="formItem.helpText!==''">
+              <span matTooltip="{{formItem.helpText}}" class="material-symbols-outlined">
+                    info
+                  </span>
+            </div>
           </div>
-          <div *ngSwitchCase="types.radio">
+          <div *ngSwitchCase="types.radio" style="display: flex; align-items: center; cursor: pointer;">
             <div>
               <label class="example-margin"><b>{{ formItem.fieldName }}:</b></label>
               <mat-radio-group [formControlName]="formItem.fieldName">
-                <mat-radio-button  *ngFor="let option of formItem.chips" [value]="option">{{
+                <mat-radio-button *ngFor="let option of formItem.chips" [value]="option">{{
                   option
                   }}</mat-radio-button>
               </mat-radio-group>
+            </div>
+            <div *ngIf="formItem.helpText!==''">
+              <span matTooltip="{{formItem.helpText}}" class="material-symbols-outlined">
+                    info
+                  </span>
             </div>
           </div>
           <div *ngSwitchDefault>
@@ -64,12 +89,13 @@
     </div>
     <button type="submit" mat-raised-button color="primary">Submit</button>
     <p style="color: red;" *ngIf="errorSubmission"> Some error occured, Please try again after some time</p>
-</form>
+  </form>
 </ng-container>
 
 <ng-template #dataView>
-    <div style="padding: 3em;">
-        {{dataSubmitted | json}}
-    </div>
-    <p style="color: green;" *ngIf="successFullSubmission"> Submittion successfull <br> Form will close automatically in {{timeInSec}}s</p>
+  <div style="padding: 3em;">
+    {{dataSubmitted | json}}
+  </div>
+  <p style="color: green;" *ngIf="successFullSubmission"> Submittion successfull <br> Form will close automatically in
+    {{timeInSec}}s</p>
 </ng-template>

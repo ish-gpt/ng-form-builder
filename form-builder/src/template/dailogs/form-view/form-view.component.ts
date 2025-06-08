@@ -24,6 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { debounceTime, flatMap } from 'rxjs';
 import { ApiService } from 'src/template/service/api.service';
 import { LoaderService } from 'src/template/service/loader.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-form-view',
@@ -42,7 +43,7 @@ import { LoaderService } from 'src/template/service/loader.service';
     ReactiveFormsModule,
     MatSelectModule,
     MatRadioModule,
-
+    MatTooltipModule
   ],
 })
 export class FormViewComponent implements OnInit {
@@ -66,6 +67,7 @@ export class FormViewComponent implements OnInit {
     this.dialogRef.afterOpened().subscribe((data) => {
       this.templateName = this.data.templateName;
     });
+    console.log(data)
   }
 
   ngOnInit() {
@@ -78,10 +80,8 @@ export class FormViewComponent implements OnInit {
     this.dynamicFormGroup.valueChanges
       .pipe(debounceTime(200))
       .subscribe((value) => {
-        // console.log(value)
         this.errors = [];
         Object.keys(this.dynamicFormGroup.controls).forEach((control) => {
-          // console.log(this.dynamicFormGroup.controls[control]);
           if (this.dynamicFormGroup.controls[control].errors && this.dynamicFormGroup.controls[control].touched) {
             let error = `${control} is Required or Wrong`;
             this.errors.push(error);
@@ -157,7 +157,6 @@ export class FormViewComponent implements OnInit {
           this.dialogRef.close();
           clearInterval(intervalId);
         }, 10000)
-        console.log(response);
       },
       error: (error) => {
         this.loaderService.hide();

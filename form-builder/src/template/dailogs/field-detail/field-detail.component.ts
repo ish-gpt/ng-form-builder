@@ -41,8 +41,6 @@ export class FieldDetailComponent implements OnInit {
       this.maxLength = this.data.data.max;
       this.pattern = this.data.data.pattern;
     }
-    // console.log(data);
-    // console.log(this.data);
     }
 
   ngOnInit(): void {

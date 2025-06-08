@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { DevEnvironment } from 'src/environments/development';
+import { SharedService } from 'src/app/services/shared.service';
+import { share } from 'rxjs';
 
 
 @Component({
@@ -20,13 +22,14 @@ import { DevEnvironment } from 'src/environments/development';
 export class LoginComponent {
 
   constructor(private location: Location,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService
   ) {
 
   }
 
   onLogin(loginForm: NgForm) {
-    // console.log("Hello", form);
+
     if (loginForm.value.loginRole == '') {
       alert('Please Select a role to login');
       return;
@@ -40,10 +43,20 @@ export class LoginComponent {
         alert('Incorrect Username/Password');
         return;
       }
-      this.router.navigate(['/templates']);
     } else {
-
+      if ((loginForm.value.username === '') || (loginForm.value.password === '')) {
+        alert('Enter Username/Password');
+        return;
+      }
+      if (!(loginForm.value.username === DevEnvironment.user.userName) || !(loginForm.value.password === DevEnvironment.user.userPassWord)) {
+        alert('Incorrect Username/Password');
+        return;
+      }
     }
+    this.sharedService.setRole(loginForm.value.loginRole);
+    this.sharedService.setIsUserLoggedIn(true)
+    this.sharedService.isUserLoggedIn = true;
+    this.router.navigate(['/templates']);
   }
 
 }

@@ -13,13 +13,15 @@ import { BasicDetailsComponent } from 'src/template/dailogs/basic-details/basic-
 import { v4 as uuidv4 } from 'uuid';
 import { FormViewComponent } from 'src/template/dailogs/form-view/form-view.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PermissionDirective } from 'src/app/directives/permission.directive';
+import { Role } from 'src/template/constants/role.constants';
 @Component({
   selector: 'app-template-section',
   templateUrl: './template-section.component.html',
   standalone: true,
   styleUrls: ['./template-section.component.css'],
   imports: [PreviewTemplateComponent, MatCardModule, MatChipsModule,
-    MatProgressBarModule, CommonModule, MatButtonModule, MatTooltipModule, MatDividerModule, MatIconModule, MatDialogModule]
+    MatProgressBarModule, CommonModule, MatButtonModule, MatTooltipModule, MatDividerModule, PermissionDirective,MatIconModule, MatDialogModule]
 })
 export class TemplateSectionComponent implements OnInit {
   isTemplateListEmpty: boolean = true;
@@ -28,6 +30,7 @@ export class TemplateSectionComponent implements OnInit {
   templateName: string = '';
   templateDataMap = new Map();
   editTemplateData!: any;
+  role = Role;
 
   constructor(public dialog: MatDialog) {
 
@@ -37,7 +40,6 @@ export class TemplateSectionComponent implements OnInit {
     let data = (localStorage.getItem('templates'));
     if (data) {
       let mapData = new Map(JSON.parse(data));
-      console.log(mapData);
 
       this.templateDataMap = mapData;
       this.isTemplateListEmpty = this.templateDataMap.size !== 0 ? false : true;
@@ -55,7 +57,6 @@ export class TemplateSectionComponent implements OnInit {
   }
 
   handleTemplateData(e: any) {
-    // console.log(this.templateDataMap);
     if (e.templateId) {
       this.templateDataMap.set(e.templateId, e);
     } else {
@@ -76,7 +77,6 @@ export class TemplateSectionComponent implements OnInit {
   }
 
   openForm(id: string) {
-    // console.log("+++", id);
     this.dialog.open(FormViewComponent, {
       data: this.templateDataMap.get(id)
     })

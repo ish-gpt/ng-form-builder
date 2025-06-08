@@ -59,7 +59,6 @@ export class PreviewTemplateComponent implements OnChanges {
       if (fieldData) {
         this.formItems.push(fieldData);
         this.isTemplateEmpty = false;
-        console.log(this.formItems);
       }
     })
   }
