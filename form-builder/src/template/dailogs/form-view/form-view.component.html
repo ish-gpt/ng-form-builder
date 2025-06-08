@@ -9,7 +9,7 @@
     <div class="drop-body">
       <h2>{{templateName}}</h2>
       <ng-container *ngFor="let formItem of data.templateItem">
-        <div [ngSwitch]="formItem.fieldType">
+        <div [ngSwitch]="formItem.fieldType.name">
           <div *ngSwitchCase="types.textfield" style="display: flex; align-items: center; cursor: pointer; justify-content: space-between;">
             <div>
               <mat-form-field appearance="outline">

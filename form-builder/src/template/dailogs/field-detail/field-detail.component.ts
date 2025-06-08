@@ -32,7 +32,7 @@ export class FieldDetailComponent implements OnInit {
 
 
   constructor(public dialogRef: MatDialogRef<FieldDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { 
+    @Inject(MAT_DIALOG_DATA) public data: any) {
     if (this.data.isEditMode) {
       this.fieldName = this.data.data.fieldName;
       this.helpText = this.data.data.helpText;
@@ -40,8 +40,9 @@ export class FieldDetailComponent implements OnInit {
       this.minLength = this.data.data.min;
       this.maxLength = this.data.data.max;
       this.pattern = this.data.data.pattern;
+      this.options = this.data.data.chips;
     }
-    }
+  }
 
   ngOnInit(): void {
     this.fieldType = this.data.type;
@@ -65,7 +66,7 @@ export class FieldDetailComponent implements OnInit {
       alert('Field name cannot be empty')
       return;
     }
-    if (this.isPatternValid(this.pattern) && this.pattern != '') {
+    if (!this.isPatternValid(this.pattern) && this.pattern != '') {
       alert('Patter is not valid');
       return;
     }

@@ -15,6 +15,7 @@ import { FormViewComponent } from 'src/template/dailogs/form-view/form-view.comp
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PermissionDirective } from 'src/app/directives/permission.directive';
 import { Role } from 'src/template/constants/role.constants';
+import { SharedService } from 'src/app/services/shared.service';
 @Component({
   selector: 'app-template-section',
   templateUrl: './template-section.component.html',
@@ -31,9 +32,10 @@ export class TemplateSectionComponent implements OnInit {
   templateDataMap = new Map();
   editTemplateData!: any;
   role = Role;
+  loggedInRole: string | null = '';
 
-  constructor(public dialog: MatDialog) {
-
+  constructor(public dialog: MatDialog, private shared: SharedService) {
+    this.loggedInRole = shared.getRole();
   }
 
   ngOnInit() {
@@ -54,6 +56,10 @@ export class TemplateSectionComponent implements OnInit {
       this.istTemplateCreateMode = name.isCanceled ? false : true;
     })
 
+  }
+
+  discardTemplate(e: any) {
+    this.istTemplateCreateMode = false;
   }
 
   handleTemplateData(e: any) {

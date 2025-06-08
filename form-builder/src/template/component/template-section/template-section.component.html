@@ -5,13 +5,17 @@
         [templateName]="templateName"
         [editTemplateData]="editTemplateData"
         (templateData)="handleTemplateData($event)"
+        (discardTemplate)="discardTemplate($event)"
         [currentEditingTemplateId]="currentEditingTemplateId"
       ></app-preview-template>
     </div>
   </ng-container>
   <ng-template #listview>
     <div>
-      <ng-container *ngIf="isTemplateListEmpty">
+      <ng-container *ngIf="(loggedInRole===role.USER) && isTemplateListEmpty">
+        <p>No template available, go to Admin panel to create one! </p>
+      </ng-container>
+      <ng-container *ngIf="isTemplateListEmpty && (loggedInRole===role.ADMIN)">
         <p>Create new template</p>
       </ng-container>
       <ng-container *ngIf="!isTemplateListEmpty">

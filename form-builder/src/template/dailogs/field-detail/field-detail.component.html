@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>{{ data.type }}</h1>
+<h1 mat-dialog-title>{{ data.type.name }}</h1>
 <div mat-dialog-content>
-  <p>Enter the {{ data.type }} configurable properties :</p>
+  <p>Enter the {{ data.type.name }} configurable properties :</p>
   <ng-container>
     <div>
       <mat-form-field appearance="outline">
@@ -18,7 +18,7 @@
         <input matInput name="helptext" [(ngModel)]="helpText" />
       </mat-form-field>
     </div>
-    <div *ngIf="types.textfield === data.type || types.textarea === data.type">
+    <div *ngIf="types.textfield === data.type.name || types.textarea === data.type.name">
       <mat-form-field appearance="outline">
         <mat-label>Minimum Length</mat-label>
         <input
@@ -29,7 +29,7 @@
         />
       </mat-form-field>
     </div>
-    <div *ngIf="types.textfield === data.type || types.textarea === data.type">
+    <div *ngIf="types.textfield === data.type.name || types.textarea === data.type.name">
       <mat-form-field appearance="outline">
         <mat-label>Maximum Length</mat-label>
         <input
@@ -40,15 +40,15 @@
         />
       </mat-form-field>
     </div>
-    <div *ngIf="types.textfield === data.type || types.textarea === data.type">
+    <div *ngIf="types.textfield === data.type.name || types.textarea === data.type.name">
       <mat-form-field appearance="outline">
         <mat-label>Validation Pattern</mat-label>
         <input matInput name="pattern" [(ngModel)]="pattern" />
       </mat-form-field>
     </div>
-    <div *ngIf="types.dropdown === data.type || types.checkbox === data.type || types.radio === data.type">
+    <div *ngIf="types.dropdown === data.type.name || types.checkbox === data.type.name || types.radio === data.type.name">
       <mat-form-field>
-        <mat-label>Add {{data.type}} Options</mat-label>
+        <mat-label>Add {{data.type.name}} Options</mat-label>
         <mat-chip-grid #chipGrid>
           <mat-chip-row
             *ngFor="let option of options"

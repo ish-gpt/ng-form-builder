@@ -33,7 +33,8 @@ export class PreviewTemplateComponent implements OnChanges {
   @Input() templateName!: string;
   @Input() editTemplateData!: string;
   @Input() currentEditingTemplateId!: string;
-  @Output('templateData') templateData = new EventEmitter<any>()
+  @Output('templateData') templateData = new EventEmitter<any>();
+  @Output('discardTemplate') discardTemplate = new EventEmitter<any>()
   formItems: any[] = [];
   types = types;
   editingTemplateId!: string;
@@ -68,6 +69,7 @@ export class PreviewTemplateComponent implements OnChanges {
     if (!continueDiscard) return;
     this.formItems = [];
     this.isTemplateEmpty = true;
+    this.discardTemplate.emit();
   }
 
 
@@ -78,9 +80,6 @@ export class PreviewTemplateComponent implements OnChanges {
       templateName: this.templateName,
       templateId: this.editingTemplateId
     }
-    // if (this.isPatternValid()) {
-    //   return;
-    // }
     this.templateData.emit(templateMetaData);
   }
 
@@ -97,12 +96,7 @@ export class PreviewTemplateComponent implements OnChanges {
       if (fieldData) {
         this.formItems[indx] = fieldData;
 
-        // this.saveChanges();
       }
     })
   }
-
-  // saveChanges() {
-
-  // }
 }

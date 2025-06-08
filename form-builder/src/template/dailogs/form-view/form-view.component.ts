@@ -67,7 +67,6 @@ export class FormViewComponent implements OnInit {
     this.dialogRef.afterOpened().subscribe((data) => {
       this.templateName = this.data.templateName;
     });
-    console.log(data)
   }
 
   ngOnInit() {
@@ -93,7 +92,7 @@ export class FormViewComponent implements OnInit {
   createFormControls() {
     let controls: any;
     this.data.templateItem.forEach((data: any) => {
-      if (data.fieldType === types.checkbox) {
+      if (data.fieldType.name === types.checkbox) {
         let ctrl = this.createSubFormControls(data);
         controls = { ...controls, [data.fieldName]: new FormGroup(ctrl) };
       } else {
@@ -112,9 +111,9 @@ export class FormViewComponent implements OnInit {
   getValidators(data: any) {
     let validators = [];
     if (data.required) validators.push(Validators.required);
-    if (data.min && !this.type.includes(data.fieldType))
+    if (data.min && !this.type.includes(data.fieldType.name))
       validators.push(Validators.minLength(data.min));
-    if (data.max && !this.type.includes(data.fieldType))
+    if (data.max && !this.type.includes(data.fieldType.name))
       validators.push(Validators.maxLength(data.max));
     if (data.pattern) validators.push(Validators.pattern(data.pattern));
     return validators;

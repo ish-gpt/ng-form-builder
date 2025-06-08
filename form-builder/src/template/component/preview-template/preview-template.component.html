@@ -5,7 +5,7 @@
       (cdkDropListDropped)="drop($event)" id="dropZone">
       <div class="drop-body">
         <ng-container *ngFor="let formItem of formItems; let i = index">
-          <div [ngSwitch]="formItem.fieldType">
+          <div [ngSwitch]="formItem.fieldType.name">
             <div *ngSwitchCase="types.textfield" class="text-field">
               <div class="field">
                 <mat-form-field appearance="outline">
