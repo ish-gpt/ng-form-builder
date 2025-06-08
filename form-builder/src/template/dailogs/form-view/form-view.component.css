@@ -1,0 +1,7 @@
+.form{
+    padding: 2em;
+}
+
+.mat-mdc-form-field{
+    min-width: 100%
+}

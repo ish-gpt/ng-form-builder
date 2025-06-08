@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'templates',
-    loadChildren: () => import('../admin/admin.module').then(mod => mod.AdminModule)
+    loadChildren: () => import('../template/service/template.module').then(mod => mod.TemplateModule)
     // component: TemplatesComponent
   }
 ];

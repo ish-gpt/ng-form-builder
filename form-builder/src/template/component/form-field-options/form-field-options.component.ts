@@ -21,7 +21,33 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   imports: [CdkDropList, CdkDrag, CommonModule, CdkDropListGroup, DragDropModule]
 })
 export class FormFieldOptionsComponent {
-  formFields = ['Text Input', 'Dropdown Select', 'Checkbox', 'Date Picker','Radio button', 'Textarea']
+  formFields = [
+    {
+      name: 'Text Input',
+      disabled: false
+    },
+    {
+      name: 'Dropdown Select',
+      disabled: false
+    },
+    {
+      name: 'Checkbox',
+      disabled: false
+    },
+    {
+      name: 'Date Picker',
+      disabled: true
+    },
+    {
+      name: 'Radio button',
+      disabled: false
+    },
+    {
+      name: 'Textarea',
+      disabled: false
+    }
+
+  ]
   drop(event:any) {
     
   }

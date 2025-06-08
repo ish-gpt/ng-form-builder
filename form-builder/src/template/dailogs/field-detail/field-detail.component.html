@@ -46,9 +46,9 @@
         <input matInput name="pattern" [(ngModel)]="pattern" />
       </mat-form-field>
     </div>
-    <div *ngIf="types.dropdown === data.type">
+    <div *ngIf="types.dropdown === data.type || types.checkbox === data.type || types.radio === data.type">
       <mat-form-field>
-        <mat-label>Add DropDown Options</mat-label>
+        <mat-label>Add {{data.type}} Options</mat-label>
         <mat-chip-grid #chipGrid>
           <mat-chip-row
             *ngFor="let option of options"
@@ -62,27 +62,15 @@
         </mat-chip-grid>
         <input
           placeholder="Add Option.."
-          #fruitInput
+          
           [matChipInputFor]="chipGrid"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           (matChipInputTokenEnd)="add($event)"
         />
-        <!-- <mat-autocomplete
-          #auto="matAutocomplete"
-          (optionSelected)="selected($event)"
-        >
-          <mat-option
-            *ngFor="let fruit of filteredFruits | async"
-            [value]="fruit"
-          >
-            {{ fruit }}
-          </mat-option>
-        </mat-autocomplete> -->
       </mat-form-field>
     </div>
   </ng-container>
 
-  <!-- <ng-container *ngIf="types.dropdown === data.type"> </ng-container> -->
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>

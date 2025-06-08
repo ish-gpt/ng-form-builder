@@ -1,0 +1,75 @@
+<ng-container *ngIf="isFormView; else dataView">
+    <form [formGroup]="dynamicFormGroup" (ngSubmit)="onFormSubmit(dynamicFormGroup)" class="form">
+    <p><i>Preview Mode</i></p>
+    <ng-container *ngFor="let error of errors">
+        <div style="color: red;">
+            *{{error}}
+        </div>
+    </ng-container>
+     <div class="drop-body">
+        <h2>{{templateName}}</h2>
+      <ng-container *ngFor="let formItem of data.templateItem">
+        <div [ngSwitch]="formItem.fieldType">
+          <div *ngSwitchCase="types.textfield">
+            <div>
+              <mat-form-field appearance="outline">
+                <mat-label>{{ formItem.fieldName }}</mat-label>
+                <input matInput type="text" [formControlName]="formItem.fieldName" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div *ngSwitchCase="types.textarea">
+            <div>
+              <mat-form-field appearance="outline">
+                <mat-label>{{ formItem.fieldName }}</mat-label>
+                <textarea matInput [formControlName]="formItem.fieldName"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div *ngSwitchCase="types.dropdown">
+            <div>
+              <mat-form-field>
+                <mat-label>{{ formItem.fieldName }}</mat-label>
+                <mat-select [formControlName]="formItem.fieldName">
+                  <mat-option *ngFor="let chip of formItem.chips" [value]="chip">
+                    {{ chip }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div *ngSwitchCase="types.checkbox">
+            <div [formGroupName]="formItem.fieldName">
+              <mat-label><b>{{ formItem.fieldName }}</b></mat-label>
+              <div *ngFor="let option of formItem.chips">
+                <mat-checkbox  [formControlName]="option">{{ option }}</mat-checkbox>
+              </div>
+            </div>
+          </div>
+          <div *ngSwitchCase="types.radio">
+            <div>
+              <label class="example-margin"><b>{{ formItem.fieldName }}:</b></label>
+              <mat-radio-group [formControlName]="formItem.fieldName">
+                <mat-radio-button  *ngFor="let option of formItem.chips" [value]="option">{{
+                  option
+                  }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div *ngSwitchDefault>
+            <p>Default case</p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <button type="submit" mat-raised-button color="primary">Submit</button>
+    <p style="color: red;" *ngIf="errorSubmission"> Some error occured, Please try again after some time</p>
+</form>
+</ng-container>
+
+<ng-template #dataView>
+    <div style="padding: 3em;">
+        {{dataSubmitted | json}}
+    </div>
+    <p style="color: green;" *ngIf="successFullSubmission"> Submittion successfull <br> Form will close automatically in {{timeInSec}}s</p>
+</ng-template>

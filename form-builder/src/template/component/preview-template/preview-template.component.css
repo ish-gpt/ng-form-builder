@@ -13,3 +13,21 @@
     display: flex;
     align-items: end;
 }
+
+.text-field {
+    display: flex;
+    align-items: center;
+}
+
+.field {
+    flex: 4;
+}
+
+.edit-btn {
+    flex:1;
+}
+
+.form-wrapper {
+    border: 1px solid #d7d7d7;
+    padding: 2em;
+}

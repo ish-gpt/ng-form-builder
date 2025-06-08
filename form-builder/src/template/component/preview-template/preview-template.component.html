@@ -1,0 +1,114 @@
+<div class="form-wrapper">
+  <h3>{{ templateName }}</h3>
+  <div cdkDropListGroup>
+    <div class="field-drop-section" cdkDropList [cdkDropListConnectedTo]="['sourceList']"
+      (cdkDropListDropped)="drop($event)" id="dropZone">
+      <div class="drop-body">
+        <ng-container *ngFor="let formItem of formItems; let i = index">
+          <div [ngSwitch]="formItem.fieldType">
+            <div *ngSwitchCase="types.textfield" class="text-field">
+              <div class="field">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ formItem.fieldName }}</mat-label>
+                  <input matInput type="text" />
+                </mat-form-field>
+              </div>
+              <div class="edit-btn">
+                <button mat-mini-fab (click)="editField(i)">
+                  <span class="material-symbols-outlined">
+                    edit
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div *ngSwitchCase="types.textarea" class="text-field">
+              <div class="field">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ formItem.fieldName }}</mat-label>
+                  <textarea matInput></textarea>
+                </mat-form-field>
+              </div>
+              <div class="edit-btn">
+                <button mat-mini-fab (click)="editField(i)" >
+                  <span class="material-symbols-outlined">
+                    edit
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div *ngSwitchCase="types.dropdown" class="text-field">
+              <div class="field">
+                <mat-form-field>
+                  <mat-label>{{ formItem.fieldName }}</mat-label>
+                  <mat-select>
+                    <mat-option *ngFor="let chip of formItem.chips" [value]="chip">
+                      {{ chip }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="edit-btn" (click)="editField(i)">
+                <button mat-mini-fab>
+                  <span class="material-symbols-outlined">
+                    edit
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div *ngSwitchCase="types.checkbox" class="text-field">
+              <div class="field">
+                <mat-label>{{ formItem.fieldName }}</mat-label>
+                <div *ngFor="let option of formItem.chips">
+                  <mat-checkbox>{{ option }}</mat-checkbox>
+                </div>
+              </div>
+              <div class="edit-btn">
+                <button mat-mini-fab (click)="editField(i)">
+                  <span class="material-symbols-outlined">
+                    edit
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div *ngSwitchCase="types.radio" class="text-field">
+              <div class="field">
+                <label class="example-margin">{{ formItem.fieldName }}:</label>
+                <mat-radio-group>
+                  <mat-radio-button *ngFor="let option of formItem.chips">{{
+                    option
+                    }}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="edit-btn" (click)="editField(i)">
+                <button mat-mini-fab>
+                  <span class="material-symbols-outlined">
+                    edit
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div *ngSwitchDefault>
+              <p>Default case</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div>
+        <p class="drop-note">Drag and Drop Form Fields Here</p>
+      </div>
+      <div class="footer" *ngIf="formItems.length">
+        <div class="cancel-template">
+          <button mat-raised-button color="primary" (click)="discard()">
+            Cancel
+          </button>
+        </div>
+        <div class="add-template">
+          <button [disabled]="isTemplateEmpty" mat-raised-button color="primary" (click)="onTemplateSubmit()"
+            type="submit">
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

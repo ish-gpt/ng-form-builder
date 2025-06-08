@@ -32,19 +32,44 @@ export class FieldDetailComponent implements OnInit {
 
 
   constructor(public dialogRef: MatDialogRef<FieldDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
+    if (this.data.isEditMode) {
+      this.fieldName = this.data.data.fieldName;
+      this.helpText = this.data.data.helpText;
+      this.required = this.data.data.required;
+      this.minLength = this.data.data.min;
+      this.maxLength = this.data.data.max;
+      this.pattern = this.data.data.pattern;
+    }
+    // console.log(data);
+    // console.log(this.data);
+    }
 
   ngOnInit(): void {
     this.fieldType = this.data.type;
   }
 
   onNoClick() {
-    this.dialogRef.close()
+    this.dialogRef.close(null)
+  }
+
+  isPatternValid(pattern: string): boolean {
+    try {
+      new RegExp(pattern);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   onFieldSubmit() {
     if (this.fieldName === '') {
       alert('Field name cannot be empty')
+      return;
+    }
+    if (this.isPatternValid(this.pattern) && this.pattern != '') {
+      alert('Patter is not valid');
+      return;
     }
     let fieldDetails = {
       fieldName: this.fieldName,
@@ -61,7 +86,6 @@ export class FieldDetailComponent implements OnInit {
 
   remove(fruit: string): void {
     const index = this.options.indexOf(fruit);
-
     if (index >= 0) {
       this.options.splice(index, 1);
     }
@@ -69,13 +93,10 @@ export class FieldDetailComponent implements OnInit {
 
   add(event: any): void {
     const value = (event.value || '').trim();
-
     if (value) {
       this.options.push(value);
     }
-
     event.chipInput!.clear();
-
   }
 }
 

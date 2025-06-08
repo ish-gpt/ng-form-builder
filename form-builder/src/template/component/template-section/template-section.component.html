@@ -1,0 +1,65 @@
+<div class="template-list-wrapper">
+  <ng-container *ngIf="istTemplateCreateMode; else listview">
+    <div class="field-drop-section">
+      <app-preview-template
+        [templateName]="templateName"
+        [editTemplateData]="editTemplateData"
+        (templateData)="handleTemplateData($event)"
+        [currentEditingTemplateId]="currentEditingTemplateId"
+      ></app-preview-template>
+    </div>
+  </ng-container>
+  <ng-template #listview>
+    <div>
+      <ng-container *ngIf="isTemplateListEmpty">
+        <p>Create new template</p>
+      </ng-container>
+      <ng-container *ngIf="!isTemplateListEmpty">
+        <p>Here are your templates</p>
+      </ng-container>
+    </div>
+    <div class="card-container">
+      <div *ngFor="let id of getKeys()">
+        <mat-card class="template-cards" appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>{{ getName(id) }} Template*</mat-card-title>
+
+            <button mat-mini-fab matTooltip="Edit" (click)="editConfiguration(id)">
+              <span class="material-symbols-outlined edit-icon"> edit </span>
+            </button>
+          </mat-card-header>
+          <mat-card-content>
+            <!-- <p>{{ longText }}</p> -->
+            <button matTooltip="Preview" mat-fab class="shadow" (click)="openForm(id)">
+              <span class="material-symbols-outlined open-icon">
+                open_with
+              </span>
+            </button>
+            <button matTooltip="Delete" mat-fab class="shadow" (click)="deleteTemplate(id)">
+              <span class="material-symbols-outlined delete-icon"> delete </span>
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div>
+        <mat-card class="default-card" appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>Create Template</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <!-- <p>{{ longText }}</p> -->
+            <button matTooltip="Create Template" matFab class="shadow" (click)="toggleMode()">
+              <span
+                title="Create"
+                class="material-symbols-outlined create-template-icon"
+              >
+                add
+              </span>
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <ng-container> </ng-container>
+  </ng-template>
+</div>
